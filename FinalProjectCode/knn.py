@@ -21,7 +21,7 @@ y = pd.qcut(df["log_price"], 3, labels=False)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 VI = np.linalg.inv(np.cov(X_train.values, rowvar=False))
-model = make_pipeline(KNeighborsClassifier(n_neighbors=11, metric="mahalanobis", metric_params={"VI":VI}))
+model = make_pipeline(KNeighborsClassifier(n_neighbors=13, metric="mahalanobis", metric_params={"VI":VI}))
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
@@ -45,7 +45,7 @@ plt.scatter(sample["log_carat"], sample["clarity"] + jitter, c=y_test[sample.ind
 plt.yticks(range(8), ["I1", "SI2", "SI1", "VS2", "VS1", "VVS2", "VVS1", "IF"])
 plt.xlabel("log(carat)")
 plt.ylabel("Clarity")
-plt.title("KNN Decision Boundary (Mahanalobis, k=11)")
+plt.title("KNN Decision Boundary (Mahanalobis, k=13)")
 handles = [plt.Line2D([], [], marker="o", ls="", markerfacecolor=c, markeredgecolor="k") for c in colors]
 plt.legend(handles, tier_names, title="Price tier", loc="lower right")
 plt.tight_layout()
